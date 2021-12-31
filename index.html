@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+
 <head>
     <title>Web Worker - Example</title>
     <style>
-        button{
-            background-color: brown;   
-            color:white;
+        button {
+            background-color: brown;
+            color: white;
             min-width: 100px;
-            min-height:30px;
+            min-height: 30px;
             padding: 10px;
-            border:0;
+            border: 0;
             display: grid;
-            margin:10px;
+            margin: 10px;
             cursor: pointer;
         }
-        button:nth-child(1){
-            background-color: blueviolet;         
+
+        button:nth-child(1) {
+            background-color: blueviolet;
         }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded',()=>{
-                var buttonOne = document.getElementById("one");
-                var buttonTwo = document.getElementById("two");
+    <script>       
 
-                buttonOne.addEventListener("click",()=>{
-                   for(let i = 0;i <= 10;i++ ){
-                       console.log("ONE ", i)
-                   }
-                })
-                buttonTwo.addEventListener("click",()=>{
-                    for(let i = 0;i <= 150000;i++ ){
-                        console.log("TWO ")
-                        console.log(i)
-                   }
-                })
+        document.addEventListener('DOMContentLoaded', () => {
+            var worker = new Worker('./task.js');
+
+            var buttonOne = document.getElementById("one");
+            var buttonTwo = document.getElementById("two");
+
+            buttonOne.addEventListener("click", () => {
+                for (let i = 0; i <= 10; i++) {
+                    document.getElementById("result-one").innerHTML = i
+                }
+            })
+            buttonTwo.addEventListener("click", () => {
+                worker.postMessage(150000);
+                
+            })
+            worker.addEventListener('message', function (e) {
+                document.getElementById("result-two").innerHTML = e.data
+            }, false);
+
+            
+
         })
+
 
     </script>
 </head>
@@ -47,6 +57,12 @@
     <button id="two">
         Two
     </button>
+    <br>
+    <label>Result one</label>
+    <div id="result-one"></div>
+    <br>
+    <label>Result two</label>
+    <div id="result-two"></div>
 
 </body>
 
