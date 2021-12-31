@@ -24,6 +24,7 @@
     <script>       
 
         document.addEventListener('DOMContentLoaded', () => {
+            //UPDATE
             var worker = new Worker('./task.js');
 
             var buttonOne = document.getElementById("one");
@@ -31,19 +32,19 @@
 
             buttonOne.addEventListener("click", () => {
                 for (let i = 0; i <= 10; i++) {
+                    // CHANGE THIS
                     document.getElementById("result-one").innerHTML = i
                 }
             })
+            //ADD THIS
             buttonTwo.addEventListener("click", () => {
                 worker.postMessage(150000);
                 
             })
+            //ADD THIS
             worker.addEventListener('message', function (e) {
                 document.getElementById("result-two").innerHTML = e.data
             }, false);
-
-            
-
         })
 
 
