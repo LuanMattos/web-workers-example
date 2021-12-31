@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+<head>
+    <title>Web Worker - Example</title>
+    <style>
+        button{
+            background-color: brown;   
+            color:white;
+            min-width: 100px;
+            min-height:30px;
+            padding: 10px;
+            border:0;
+            display: grid;
+            margin:10px;
+            cursor: pointer;
+        }
+        button:nth-child(1){
+            background-color: blueviolet;         
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+                var buttonOne = document.getElementById("one");
+                var buttonTwo = document.getElementById("two");
+
+                buttonOne.addEventListener("click",()=>{
+                   for(let i = 0;i <= 10;i++ ){
+                       console.log("ONE ", i)
+                   }
+                })
+                buttonTwo.addEventListener("click",()=>{
+                    for(let i = 0;i <= 150000;i++ ){
+                        console.log("TWO ")
+                        console.log(i)
+                   }
+                })
+        })
+
+    </script>
+</head>
+
+<body>
+    <button id="one">
+        One
+    </button>
+    <button id="two">
+        Two
+    </button>
+
+</body>
+
+</html>
